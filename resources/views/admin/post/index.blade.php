@@ -53,6 +53,30 @@
                                     </form>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    New Post
+                                </td>
+                                <td>
+                                    New Category
+                                </td>
+                                <td>
+                                    Published
+                                </td>
+                                <td>
+                                    <a class="btn btn-secondary btn-sm " href="{{ route('post.show','1') }}">View</a>
+                                    <a class="btn btn-warning btn-sm" href="{{ route('post.edit','1') }}">Edit</a>
+                                    <form class="d-inline-block" action="{{ route('post.destroy','1') }}" method="post">
+                                        @csrf
+                                        @method('delete')
+
+                                        <button class="btn btn-danger btn-sm" onclick="return confirm('Are you delete this?')">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>

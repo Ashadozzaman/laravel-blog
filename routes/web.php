@@ -24,5 +24,6 @@ Route::middleware('auth')->group(function (){
     Route::resource('post','PostController');
     Route::resource('user','UserController');
     Route::resource('category','CategoryController'); 
+    Route::resource('author','AuthorController');
 });
 

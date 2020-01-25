@@ -32,5 +32,18 @@
                 </ul>
             </div>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-category" aria-expanded="false" aria-controls="ui-basic">
+                <i class="ti-user menu-icon"></i>
+                <span class="menu-title">Category</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-category">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('category.create') }}">Create New Category</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('category.index') }}">List Of Category</a></li>
+                </ul>
+            </div>
+        </li>
     </ul>
 </nav>

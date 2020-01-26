@@ -21,6 +21,9 @@
                                     Category
                                 </th>
                                 <th>
+                                    Author
+                                </th>
+                                <th>
                                     Status
                                 </th>
                                 <th>
@@ -29,23 +32,31 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($posts as $post)
                             <tr>
                                 <td>
-                                    1
+                                    {{ $serial++ }}
                                 </td>
                                 <td>
-                                    New Post
+                                    {{$post->title}}
                                 </td>
                                 <td>
-                                    New Category
+                                    @foreach($categories as $category)
+                                       @if($category->id == $post->category_id) {{$category->name}} @endif
+                                    @endforeach
                                 </td>
                                 <td>
-                                    Published
+                                    @foreach($authors as $author)
+                                        @if($author->id == $post->author_id) {{$author->name}} @endif
+                                    @endforeach
                                 </td>
                                 <td>
-                                    <a class="btn btn-secondary btn-sm " href="{{ route('post.show','1') }}">View</a>
-                                    <a class="btn btn-warning btn-sm" href="{{ route('post.edit','1') }}">Edit</a>
-                                    <form class="d-inline-block" action="{{ route('post.destroy','1') }}" method="post">
+                                    {{ ucfirst($post->status) }}
+                                </td>
+                                <td>
+                                    <a class="btn btn-secondary btn-sm " href="{{ route('post.show',$post->id) }}">View</a>
+                                    <a class="btn btn-warning btn-sm" href="{{ route('post.edit',$post->id) }}">Edit</a>
+                                    <form class="d-inline-block" action="{{ route('post.destroy',$post->id) }}" method="post">
                                         @csrf
                                         @method('delete')
 
@@ -53,30 +64,7 @@
                                     </form>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    1
-                                </td>
-                                <td>
-                                    New Post
-                                </td>
-                                <td>
-                                    New Category
-                                </td>
-                                <td>
-                                    Published
-                                </td>
-                                <td>
-                                    <a class="btn btn-secondary btn-sm " href="{{ route('post.show','1') }}">View</a>
-                                    <a class="btn btn-warning btn-sm" href="{{ route('post.edit','1') }}">Edit</a>
-                                    <form class="d-inline-block" action="{{ route('post.destroy','1') }}" method="post">
-                                        @csrf
-                                        @method('delete')
-
-                                        <button class="btn btn-danger btn-sm" onclick="return confirm('Are you delete this?')">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

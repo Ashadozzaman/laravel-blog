@@ -10,9 +10,18 @@
                         @csrf
                         <div class="form-group">
                             <label for="exampleSelectGender">Category</label>
-                            <select class="form-control" name="category" id="category">
-                                <option>News</option>
-                                <option>Sports</option>
+                            <select class="form-control" name="category_id" id="category_id">
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleSelectGender">Author</label>
+                            <select class="form-control" name="author_id" id="author_id">
+                                @foreach($authors as $author)
+                                    <option value="{{ $author->id }}">{{ $author->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group">
@@ -38,13 +47,13 @@
                             <label>Status</label>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="status" id="published" value="">
+                                    <input type="radio" class="form-check-input" name="status" id="published" value="published">
                                     Published
                                 </label>
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="status" id="unpublished" value="">
+                                    <input type="radio" class="form-check-input" name="status" id="unpublished" value="unpublished">
                                     Un-Published
                                 </label>
                             </div>

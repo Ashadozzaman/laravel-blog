@@ -12,7 +12,8 @@ class Post extends Model
         'title',
         'content',
         'status',
-        'published_at'
+        'published_at',
+        'image'
 
         ];
 

@@ -44,6 +44,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->hasfile('image'))
+        {
+            $file = $request->file('image');
+            $path = 'images/upload/post';
+            $file_name = time().rand(00000,99999).'.'.$file->getClientOriginalExtension();
+            $file->move($path,$file_name);
+            $data['image'] = $path.'/'.$file_name;
+        }
         $data['category_id'] = $request->category_id;
         $data['author_id'] = $request->author_id;
         $data['title'] = $request->title;
@@ -95,6 +103,18 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        if ($request->hasFile('image'))
+        {
+            $file = $request->file('image');
+            $path = 'images/upload/post';
+            $file_name = time().rand(00000,99999).'.'.$file->getClientOriginalExtension();
+            $file->move($path,$file_name);
+            $data['image'] = $path.'/'.$file_name;
+            if (file_exists($post->image))
+            {
+                unlink($post->image);
+            }
+        }
         $data['category_id'] = $request->category_id;
         $data['author_id'] = $request->author_id;
         $data['title'] = $request->title;
@@ -120,5 +140,9 @@ class PostController extends Controller
         $post->delete();
         session()->flash('success','Post Deleted Successfully');
         return redirect()->route('post.index');
+        if (file_exists($post->image))
+        {
+            unlink($post->image);
+        }
     }
 }

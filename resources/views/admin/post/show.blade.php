@@ -19,6 +19,9 @@
                             @endforeach
                         </h4>
                         <p class="card-subtitle">{{$post->status}}</p>
+                        @if($post->image != null)
+                            <p><img src="{{ asset($post->image) }}" alt=""></p>
+                        @endif
                         <p><strong>{{$post->content }}</strong></p>
                         <div class="text-right">
                             <a href="{{ route('post.index') }}"><button class="btn btn-secondary">Back</button></a>

@@ -21,7 +21,6 @@ class PostController extends Controller
         $data['posts'] = Post::all();
         $data['serial'] = 1;
         return view('admin.post.index',$data);
-
     }
 
     /**
@@ -44,6 +43,15 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'category_id' => 'required',
+            'author_id' => 'required',
+            'title' => 'required',
+            'content' => 'required',
+            'status' => 'required',
+            'image' => 'mimes:jpeg,png',
+
+        ]);
         if ($request->hasfile('image'))
         {
             $file = $request->file('image');
@@ -60,7 +68,7 @@ class PostController extends Controller
         if ($request->status == 'published'){
             $data['published_at'] = date('Y-m-d');
         }
-//        dd($data);
+    //    dd($data);
         Post::create($data);
         session()->flash('success','Post Create Successfully');
         return redirect()->route('post.index');
@@ -103,10 +111,19 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $request->validate([
+            'category_id' => 'required',
+            'author_id' => 'required',
+            'title' => 'required',
+            'content' => 'required',
+            'status' => 'required',
+            'image' => 'mimes:jpeg,png',
+
+        ]);
         if ($request->hasFile('image'))
         {
-            $file = $request->file('image');
-            $path = 'images/upload/post';
+            $file      = $request->file('image');
+            $path      = 'images/upload/post';
             $file_name = time().rand(00000,99999).'.'.$file->getClientOriginalExtension();
             $file->move($path,$file_name);
             $data['image'] = $path.'/'.$file_name;
@@ -116,15 +133,14 @@ class PostController extends Controller
             }
         }
         $data['category_id'] = $request->category_id;
-        $data['author_id'] = $request->author_id;
-        $data['title'] = $request->title;
-        $data['content'] = $request->content;
-        $data['status'] = $request->status;
-        $data['categories'] = Category::orderBy('name')->get();
-        $data['authors'] = Author::orderBy('name')->get();
-
+        $data['author_id']   = $request->author_id;
+        $data['title']       = $request->title;
+        $data['content']     = $request->content;
+        $data['status']      = $request->status;
+        $data['categories']  = Category::orderBy('name')->get();
+        $data['authors']     = Author::orderBy('name')->get();
+    //    dd($data);
         $post->update($data);
-
         session()->flash('success','Post Updated Successfully');
         return redirect()->route('post.index');
     }

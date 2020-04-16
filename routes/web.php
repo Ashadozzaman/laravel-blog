@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('post/{id}/details', 'HomeController@details')->name('post.details');
+
 Route::get('login','LoginController@index')->name('user.login');
 Route::post('login','LoginController@login')->name('login');
 Route::post('logout','LoginController@logout')->name('logout');

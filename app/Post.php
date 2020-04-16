@@ -17,5 +17,15 @@ class Post extends Model
         'is_featured'
 
         ];
+    public function category(){
+        return $this->belongsTo(Category:: Class);
+    }
+    public function author(){
+        return $this->belongsTo(Author:: class);
+    }
+    public function scopePublished($query){
+        return $query->where('status', 'published');
+    }
+
 
 }

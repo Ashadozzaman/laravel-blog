@@ -19,6 +19,7 @@ class PostController extends Controller
         $data['categories'] = Category::orderBy('name')->get();
         $data['authors'] = Author::orderBy('name')->get();
         $data['posts'] = Post::all();
+        // dd($data);
         $data['serial'] = 1;
         return view('admin.post.index',$data);
     }
@@ -43,13 +44,15 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'category_id' => 'required',
             'author_id' => 'required',
             'title' => 'required',
             'content' => 'required',
             'status' => 'required',
-            'image' => 'mimes:jpeg,png',
+            'image' => 'mimes:jpeg,png,webp',
+            
 
         ]);
         if ($request->hasfile('image'))
@@ -65,10 +68,15 @@ class PostController extends Controller
         $data['title'] = $request->title;
         $data['content'] = $request->content;
         $data['status'] = $request->status;
+
+        if($request->has('is_featured')){
+            $data['is_featured'] = $request->is_featured;
+        }
+
         if ($request->status == 'published'){
             $data['published_at'] = date('Y-m-d');
         }
-    //    dd($data);
+        // dd($request->all());
         Post::create($data);
         session()->flash('success','Post Create Successfully');
         return redirect()->route('post.index');
@@ -117,7 +125,7 @@ class PostController extends Controller
             'title' => 'required',
             'content' => 'required',
             'status' => 'required',
-            'image' => 'mimes:jpeg,png',
+            'image' => 'mimes:jpeg,png,webp',
 
         ]);
         if ($request->hasFile('image'))
@@ -139,6 +147,9 @@ class PostController extends Controller
         $data['status']      = $request->status;
         $data['categories']  = Category::orderBy('name')->get();
         $data['authors']     = Author::orderBy('name')->get();
+        if($request->has('is_featured')){
+            $data['is_featured'] = $request->is_featured;
+        }
     //    dd($data);
         $post->update($data);
         session()->flash('success','Post Updated Successfully');

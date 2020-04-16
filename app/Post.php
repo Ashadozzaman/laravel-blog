@@ -13,7 +13,8 @@ class Post extends Model
         'content',
         'status',
         'published_at',
-        'image'
+        'image',
+        'is_featured'
 
         ];
 

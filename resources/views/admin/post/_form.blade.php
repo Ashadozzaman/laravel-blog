@@ -76,3 +76,17 @@
         <div class="text-danger">{{ $message }}</div>
     @enderror
 </div>
+<div class="form-group">
+    <label>Featured</label>
+    <div class="form-check">
+        <label class="form-check-label">
+            <input type="checkbox" 
+            @if(old('status') == 1 ) checked @endif
+            class="form-check-input" name="is_featured" id="published" value="1">
+            Yes
+        </label>
+    </div>
+    @error('status')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
+</div>

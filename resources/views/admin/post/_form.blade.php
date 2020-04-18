@@ -3,7 +3,7 @@
         <select class="form-control" name="category_id" id="category_id">
         <option value=""> Select Category</option>
             @foreach($categories as $category)
-                <option  @if(old('category_id') == $category->id) selected @endif
+                <option  @if(old('category_id',isset($post)?$post->category_id:null)) selected @endif
                     value="{{ $category->id }}">{{ $category->name }}</option>
             @endforeach
         </select>
@@ -17,7 +17,7 @@
     <option value="">Select Author</option>
         @foreach($authors as $author)
             <option 
-            @if(old('author_id') == $author->id) selected @endif
+            @if(old('author_id',isset($post)?$post->author_id:null)) selected @endif
             value="{{ $author->id }}">{{ $author->name }}</option>
         @endforeach
     </select>
@@ -59,7 +59,7 @@
     <div class="form-check">
         <label class="form-check-label">
             <input type="radio" 
-            @if(old('status') == 'published') checked @endif
+            @if(old('status', isset($post)?$post->status:null) == 'published') checked @endif
             class="form-check-input" name="status" id="published" value="published">
             Published
         </label>
@@ -67,7 +67,7 @@
     <div class="form-check">
         <label class="form-check-label">
             <input type="radio"
-            @if(old('status') == 'unpublished') checked @endif
+            @if(old('status',isset($post)?$post->status:null) == 'unpublished') checked @endif
             class="form-check-input" name="status" id="unpublished" value="unpublished">
             Un-Published
         </label>
@@ -81,7 +81,7 @@
     <div class="form-check">
         <label class="form-check-label">
             <input type="checkbox" 
-            @if(old('status') == 1 ) checked @endif
+            @if(old('is_featured',isset($post)?$post->is_featured:null) == 1 ) checked @endif
             class="form-check-input" name="is_featured" id="published" value="1">
             Yes
         </label>
